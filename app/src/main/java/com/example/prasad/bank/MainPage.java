@@ -46,4 +46,10 @@ public class MainPage extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    void webview(View view) {
+        Intent intent = new Intent(this, WebActivity.class);
+        startActivity(intent);
+
+    }
 }
