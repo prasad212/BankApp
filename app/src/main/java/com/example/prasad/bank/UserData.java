@@ -2,10 +2,14 @@ package com.example.prasad.bank;
 
 public class UserData {
     String name;
-    Long mobileno;
 
-    public UserData(String name, Long mobileno) {
-        this.mobileno = mobileno;
+    int value;
+
+    public UserData(String name, int value) {
+
         this.name = name;
+        this.value = value;
     }
+
+
 }

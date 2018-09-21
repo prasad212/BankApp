@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prasad.bank.Data.AppDatabase;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Long mobno = 0L;
     EditText mobileno, password;
     MyApplication application;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
         mobileno = findViewById(R.id.loginmobile);
         password = findViewById(R.id.loginpassword);
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
+        textView = findViewById(R.id.signup_text);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, Signup.class);
+                startActivity(i);
+            }
+        });
     }
 
 
@@ -70,11 +80,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    void signup(View view) {
-        Intent i = new Intent(this, Signup.class);
-        startActivity(i);
-
-    }
 
 
 }

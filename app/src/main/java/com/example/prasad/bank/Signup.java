@@ -2,6 +2,7 @@ package com.example.prasad.bank;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +44,10 @@ public class Signup extends AppCompatActivity {
             user.setMobileno(mobilno);
             user.setName(name);
             user.setPassword(password);
+
+
             db.userDao().insertAll(user);
+
             int time = Toast.LENGTH_SHORT;
             String inserted = "Account Created";
             Context c = getApplicationContext();
@@ -56,6 +60,8 @@ public class Signup extends AppCompatActivity {
             Toast t = Toast.makeText(c, inserted, time);
             t.show();
         }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 
