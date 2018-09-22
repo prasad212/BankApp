@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Signup"
     android:orientation="vertical"
-    android:background="@color/Background"
-    android:weightSum="10">
+    android:background="@color/Background">
 
     <ImageView
         android:id="@+id/imageview"
@@ -24,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
 
-        android:text="@string/name"
+        android:text="@string/email"
 
         android:layout_weight="1"
         android:textColor="@color/TextcolorLogin" />

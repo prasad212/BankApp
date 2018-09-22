@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prasad.bank.Data.AppDatabase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     EditText mobileno, password;
     MyApplication application;
     TextView textView;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference myref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
 
@@ -59,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
             Toast t = Toast.makeText(this, msg, time);
             t.show();
         }
-        boolean i = db.userDao().findbymobile(mobno, pas);
+        boolean i = db.userDao().findbymobile(no, pas);
         if (i == true) {
 
-            String mobileno = String.valueOf(mobno);
+            //   String mobileno = String.valueOf(mobno);
 
 
             application = (MyApplication) getApplication();

@@ -25,7 +25,7 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         application = (MyApplication) getApplication();
-        mobno = application.getMobileno();
+        // mobno = application.getMobileno();
         amounttext = findViewById(R.id.ammount);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();

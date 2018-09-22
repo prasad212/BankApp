@@ -16,8 +16,8 @@ public interface UserDao {
     @Query("Select value From user Where mobileno Like :mobileno")
     int finduserinfo(Long mobileno);
 
-    @Query("Select * From user Where mobileno Like :mobileno" + " AND password Like :password")
-    boolean findbymobile(Long mobileno, String password);
+    @Query("Select * From user Where mobileno Like :name" + " AND password Like :password")
+    boolean findbymobile(String name, String password);
 
     @Query("Select name From user Where mobileno Like :mobileno")
     String returnname(Long mobileno);
