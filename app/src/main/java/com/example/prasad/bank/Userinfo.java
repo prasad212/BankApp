@@ -32,7 +32,7 @@ public class Userinfo extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userref = databaseReference.child("users");
         application = (MyApplication) getApplication();
-        Long mobno = application.getMobileno();
+      String email= application.getEmail();
 
        /* db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
         try {

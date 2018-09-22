@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
 
-        android:text="@string/email"
+        android:text="@string/name"
 
         android:layout_weight="1"
         android:textColor="@color/TextcolorLogin" />
@@ -31,7 +31,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name"
+        android:id="@+id/Name_id"
         android:inputType="text"
         android:layout_weight="1"
         android:layout_margin="10sp" />
@@ -42,15 +42,15 @@
         android:layout_margin="10sp"
         android:textColor="@color/TextcolorLogin"
         android:layout_weight="1"
-        android:text="@string/mobile_no" />
+        android:text="@string/email" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:inputType="number"
+        android:inputType="text"
         android:layout_weight="1"
-        android:id="@+id/mobileno" />
+        android:id="@+id/Email_id" />
 
     <TextView
         android:layout_width="wrap_content"

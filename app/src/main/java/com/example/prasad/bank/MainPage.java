@@ -32,7 +32,7 @@ public class MainPage extends AppCompatActivity {
 
         nametextView = findViewById(R.id.nameTextView);
 
-        String name = db.userDao().returnname(mobno);
+        String name = db.userDao().returnname(application.Email);
 
         nametextView.setText("Hello " + name);
     }
@@ -54,7 +54,7 @@ public class MainPage extends AppCompatActivity {
         String amount = amounttext.getText().toString();
         int amountint = Integer.parseInt(amount);
 
-        int i = db.userDao().balanceupdate(mobno, amountint);
+        int i = db.userDao().balanceupdate(application.Email, amountint);
         if (i == 1) {
             int length = Toast.LENGTH_SHORT;
             String msg = "Balance Updated";

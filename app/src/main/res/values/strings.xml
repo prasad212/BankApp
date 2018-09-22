@@ -7,5 +7,6 @@
     <string name="name">Name</string>
 
     <string name="create_account">Create Account</string>
-    <string name="email">email</string>
+    <string name="email">Email</string>
+
 </resources>

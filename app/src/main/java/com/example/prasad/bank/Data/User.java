@@ -5,12 +5,18 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.checkerframework.checker.nullness.compatqual.NonNullType;
+
 import javax.annotation.Nonnull;
+
+import io.reactivex.annotations.NonNull;
 
 @Entity(tableName = "user")
 public class User {
+
     @PrimaryKey
-    private long mobileno;
+@android.support.annotation.NonNull
+    private String Email;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "password")
@@ -29,12 +35,12 @@ public class User {
         this.value = value;
     }
 
-    public long getMobileno() {
-        return mobileno;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setMobileno(long mobileno) {
-        this.mobileno = mobileno;
+    public void setEmail(String Email) {
+        this.Email = Email;
 
     }
 

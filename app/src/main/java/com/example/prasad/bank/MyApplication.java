@@ -3,13 +3,13 @@ package com.example.prasad.bank;
 import android.app.Application;
 
 public class MyApplication extends Application {
-    Long mobileno;
+    String Email;
 
-    public void setMobileno(Long mobileno) {
-        this.mobileno = mobileno;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
-    public Long getMobileno() {
-        return mobileno;
+    public String getEmail() {
+        return Email;
     }
 }

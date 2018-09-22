@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prasad.bank.Data.AppDatabase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,12 +27,12 @@ import java.sql.SQLException;
 public class MainActivity extends AppCompatActivity {
 
     AppDatabase db;
-    String no = "12A@sda", pas = "sadas";
+    String email, password;
     Long mobno = 0L;
-    EditText mobileno, password;
+    EditText emailtext, passwordtext;
     MyApplication application;
     TextView textView;
-
+    FirebaseAuth auth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myref;
 
@@ -35,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mobileno = findViewById(R.id.loginmobile);
-        password = findViewById(R.id.loginpassword);
+        emailtext = findViewById(R.id.login_id_email);
+        passwordtext = findViewById(R.id.loginpassword);
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
         textView = findViewById(R.id.signup_text);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        auth = FirebaseAuth.getInstance();
 
     }
 
@@ -53,39 +59,48 @@ public class MainActivity extends AppCompatActivity {
     void login(View view) {
 
         try {
-            no = mobileno.getText().toString();
-            mobno = Long.parseLong(no);
-            pas = password.getText().toString();
-            boolean empty = pas.isEmpty();
-            String value = mobno.toString();
+            email = emailtext.getText().toString();
+            password = passwordtext.getText().toString();
+            boolean i = db.userDao().findbyEmail(email, password);
+            if (i == true) {
 
-        } catch (NumberFormatException d) {
+                //   String mobileno = String.valueOf(mobno);
+                int time = Toast.LENGTH_SHORT;
+                String msg = "Exist in Local database";
+                Toast t = Toast.makeText(this, msg, time);
+                t.show();
+                application = (MyApplication) getApplication();
+                application.setEmail(email);
+            } else
+                {
+                int time = Toast.LENGTH_SHORT;
+                String msg = "Invalid Login";
+                Toast t = Toast.makeText(this, msg, time);
+                t.show();
+            }
+
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(MainActivity.this, MainPage.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        int time = Toast.LENGTH_SHORT;
+                        String msg = "invalid in Firebase";
+                        Toast t = Toast.makeText(MainActivity.this, msg, time);
+                        t.show();
+                    }
+                }
+            });
+        } catch (IllegalArgumentException e) {
             int time = Toast.LENGTH_SHORT;
-            String msg = "Please Enter Valid Credential";
-            Toast t = Toast.makeText(this, msg, time);
-            t.show();
-        }
-        boolean i = db.userDao().findbymobile(no, pas);
-        if (i == true) {
-
-            //   String mobileno = String.valueOf(mobno);
-
-
-            application = (MyApplication) getApplication();
-            application.setMobileno(mobno);
-
-            Intent intent = new Intent(this, MainPage.class);
-            startActivity(intent);
-            finish();
-        } else {
-            int time = Toast.LENGTH_SHORT;
-            String msg = "Invalid Login";
-            Toast t = Toast.makeText(this, msg, time);
+            String msg = "Please Enter Email and password";
+            Toast t = Toast.makeText(MainActivity.this, msg, time);
             t.show();
         }
     }
-
-
 
 
 }
