@@ -16,8 +16,8 @@ public interface UserDao {
     @Query("Select value From user Where Email Like :Email")
     int finduserinfo(String Email);
 
-    @Query("Select * From user Where Email Like :Email" + " AND password Like :password")
-    boolean findbyEmail(String Email, String password);
+    @Query("Select * From user Where Email Like :Email And password Like :password" )
+    boolean auth(String Email, String password);
 
     @Query("Select name From user Where Email Like :Email")
     String returnname(String Email);
@@ -25,12 +25,16 @@ public interface UserDao {
     @Query("UPDATE user SET value = :value WHERE Email Like :Email ")
     int balanceupdate(String Email, int value);
 
+    @Query("Select  * From user Where Email Like :Email")
+    User returnuser(String Email);
+
+
     @Update
     void setvalue(User user);
     @Insert
     void insertAll(User user);
 
     @Delete
-    void deleteAll(User user);
+   int deleteAll(User user);
 
 }

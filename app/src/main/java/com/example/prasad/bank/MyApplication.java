@@ -5,6 +5,8 @@ import android.app.Application;
 public class MyApplication extends Application {
     String Email;
 
+    String password;
+
     public void setEmail(String Email) {
         this.Email = Email;
     }
@@ -12,4 +14,7 @@ public class MyApplication extends Application {
     public String getEmail() {
         return Email;
     }
+    public  MyApplication()
+    {}
+
 }

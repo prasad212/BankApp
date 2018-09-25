@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,73 +37,122 @@ public class Signup extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     FirebaseDatabase database;
     private DatabaseReference mDatabase;
+    Context signupcontext;
+    String email, name, password;
+    FirebaseUser fireuser;
+    boolean isfireuseradded,isroomuseradded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-       nametext = findViewById(R.id.Name_id);
+        nametext = findViewById(R.id.Name_id);
         emailtext = findViewById(R.id.Email_id);
         passwordEdit = findViewById(R.id.password);
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
         auth = FirebaseAuth.getInstance();
-
     }
 
     void insert(View view) {
 
-        try {
+User user1= new User();
 
-            User user = new User();
-            String email = emailtext.getText().toString();
-            String name = nametext.getText().toString();
-            String password = passwordEdit.getText().toString();
+        email = emailtext.getText().toString();
+        name = nametext.getText().toString();
+        password = passwordEdit.getText().toString();
 
-            user.setEmail(email);
-            user.setName(name);
-            user.setPassword(password);
+        user1.setEmail(email);
+        user1.setName(name);
+        user1.setPassword(password);
+        user= user1;
+try{
+       boolean  i =  authfirebase();
+       if(isfireuseradded==true)
+       {
+          boolean  j =   insertroom();
+           if(j==true)
+           {
 
-            auth.createUserWithEmailAndPassword(email,password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                String inserted = "Account Created in Firebase";
-                                int time = Toast.LENGTH_SHORT;
-                                Context c = getApplicationContext();
-                                Toast t = Toast.makeText(c, inserted, time);
-                                t.show();
-                            }else
-                            {
-                                String inserted = "Firebase Error";
-                                int time = Toast.LENGTH_SHORT;
-                                Context c = getApplicationContext();
-                                Toast t = Toast.makeText(c, inserted, time);
-                                t.show();
-                            }
+               Intent intent = new Intent(this, MainActivity.class);
+
+               startActivity(intent);
+
+               finish();
+
+           }
+       }
+
+    }catch (IllegalArgumentException e)
+{
+
+    int time = Toast.LENGTH_SHORT;
+
+    String inserted = "Please Enter Data First";
+
+    Context c = getApplicationContext();
+
+    Toast t = Toast.makeText(c, inserted, time);
+    t.show();
+}
+
+    }
+
+    boolean authfirebase() {
+
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            String inserted = "Account Created in Firebase";
+                            int time = Toast.LENGTH_SHORT;
+                             fireuser = auth.getCurrentUser();
+                            signupcontext = getApplicationContext();
+                            Toast t = Toast.makeText(signupcontext, inserted, time);
+                            t.show();
+
+                        } else {
+                            String inserted = "Firebase Error";
+                            int time = Toast.LENGTH_SHORT;
+                            Context c = getApplicationContext();
+                            Toast t = Toast.makeText(c, inserted, time);
+                            t.show();
+
                         }
-                    });
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+                    }
+                });
+        return true;
+    }
 
+    boolean insertroom() {
+
+        try {
+            //calling insertall in userdao passing user object
             db.userDao().insertAll(user);
-            mDatabase.push().setValue(user);
+
+            //mDatabase.push().setValue(user);
+
+
             int time = Toast.LENGTH_SHORT;
+
             String inserted = "Account Created";
+
             Context c = getApplicationContext();
+
             Toast t = Toast.makeText(c, inserted, time);
+
             t.show();
+
         } catch (SQLiteConstraintException e) {
+
             int time = Toast.LENGTH_SHORT;
             String inserted = "Email Already Exist";
             Context c = getApplicationContext();
             Toast t = Toast.makeText(c, inserted, time);
             t.show();
+
+
         }
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+return  true;
     }
-
-
 }

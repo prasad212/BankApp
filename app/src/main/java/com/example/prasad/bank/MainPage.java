@@ -67,4 +67,22 @@ public class MainPage extends AppCompatActivity {
             toast.show();
         }
     }
+    void delete(View view)
+    {
+        User user = db.userDao().returnuser(application.Email);
+        if(db.userDao().deleteAll(user)==1)
+        {
+            int length = Toast.LENGTH_SHORT;
+            String msg = "User"+user.getEmail()+" deleted";
+            Toast toast = Toast.makeText(this, msg, length);
+            toast.show();
+        }
+        else{
+            int length = Toast.LENGTH_SHORT;
+            String msg = "Error deleting";
+            Toast toast = Toast.makeText(this, msg, length);
+            toast.show();
+        }
+
+    }
 }

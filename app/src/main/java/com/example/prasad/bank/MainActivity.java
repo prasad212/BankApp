@@ -26,15 +26,19 @@ import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
 
+    //database class global object
     AppDatabase db;
+
+
+
+
     String email, password;
     Long mobno = 0L;
     EditText emailtext, passwordtext;
     MyApplication application;
     TextView textView;
     FirebaseAuth auth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference myref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         emailtext = findViewById(R.id.login_id_email);
         passwordtext = findViewById(R.id.loginpassword);
+
+
+        //database object initialisation in on create
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
+        //
+
         textView = findViewById(R.id.signup_text);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             email = emailtext.getText().toString();
             password = passwordtext.getText().toString();
-            boolean i = db.userDao().findbyEmail(email, password);
+            boolean i = db.userDao().auth(email, password);
+
             if (i == true) {
 
                 //   String mobileno = String.valueOf(mobno);
@@ -69,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 String msg = "Exist in Local database";
                 Toast t = Toast.makeText(this, msg, time);
                 t.show();
-                application = (MyApplication) getApplication();
-                application.setEmail(email);
+
             } else
                 {
                 int time = Toast.LENGTH_SHORT;
@@ -78,11 +87,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast t = Toast.makeText(this, msg, time);
                 t.show();
             }
-
+              //firebase
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        application = (MyApplication) getApplication();
+                        application.setEmail(email);
                         Intent intent = new Intent(MainActivity.this, MainPage.class);
                         startActivity(intent);
                         finish();
