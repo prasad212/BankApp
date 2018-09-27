@@ -30,9 +30,9 @@ public class Userinfo extends AppCompatActivity {
         mobilenoText = findViewById(R.id.mobilenouserinfo);
         amounttext = findViewById(R.id.amount_id);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        userref = databaseReference.child("users");
+        //userref = databaseReference.child("users");
         application = (MyApplication) getApplication();
-      String email= application.getEmail();
+      Long mobileno= application.getMobileno();
 
        /* db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
         try {

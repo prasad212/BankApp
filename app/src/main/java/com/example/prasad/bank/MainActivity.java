@@ -27,9 +27,9 @@ import java.sql.SQLException;
 public class MainActivity extends AppCompatActivity {
 
     AppDatabase db;
-    String email, password;
+    String mobile, password;
     Long mobno = 0L;
-    EditText emailtext, passwordtext;
+    EditText mobiletext, passwordtext;
     MyApplication application;
     TextView textView;
     FirebaseAuth auth;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        emailtext = findViewById(R.id.login_id_email);
+        mobiletext = findViewById(R.id.login_id_email);
         passwordtext = findViewById(R.id.loginpassword);
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
         textView = findViewById(R.id.signup_text);
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        auth = FirebaseAuth.getInstance();
+        //auth = FirebaseAuth.getInstance();
 
     }
 
@@ -59,18 +59,25 @@ public class MainActivity extends AppCompatActivity {
     void login(View view) {
 
         try {
-            email = emailtext.getText().toString();
+
+            mobile = mobiletext.getText().toString();
             password = passwordtext.getText().toString();
-            boolean i = db.userDao().findbyEmail(email, password);
+            Long mobileno = Long.parseLong(mobile);
+            boolean i = db.userDao().findbymobilno(mobileno, password);
             if (i == true) {
 
                 //   String mobileno = String.valueOf(mobno);
                 int time = Toast.LENGTH_SHORT;
-                String msg = "Exist in Local database";
-                Toast t = Toast.makeText(this, msg, time);
-                t.show();
+              //  String msg = "Exist in Local database";
+                //Toast t = Toast.makeText(this, msg, time);
+                //t.show();
+
                 application = (MyApplication) getApplication();
-                application.setEmail(email);
+
+                application.setMobileno(mobileno);
+                Intent intent = new Intent(MainActivity.this, MainPage.class);
+                startActivity(intent);
+                finish();
             } else
                 {
                 int time = Toast.LENGTH_SHORT;
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast t = Toast.makeText(this, msg, time);
                 t.show();
             }
-
+/*
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -93,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         t.show();
                     }
                 }
-            });
+            });*/
         } catch (IllegalArgumentException e) {
             int time = Toast.LENGTH_SHORT;
             String msg = "Please Enter Email and password";

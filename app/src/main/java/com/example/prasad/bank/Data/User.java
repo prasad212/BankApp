@@ -14,9 +14,18 @@ import io.reactivex.annotations.NonNull;
 @Entity(tableName = "user")
 public class User {
 
+    @android.support.annotation.NonNull
+    public Long getMobileno() {
+        return mobileno;
+    }
+
+    public void setMobileno(@android.support.annotation.NonNull Long mobileno) {
+        this.mobileno = mobileno;
+    }
+
     @PrimaryKey
 @android.support.annotation.NonNull
-    private String Email;
+    private Long mobileno;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "password")
@@ -35,14 +44,8 @@ public class User {
         this.value = value;
     }
 
-    public String getEmail() {
-        return Email;
-    }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
 
-    }
 
     public String getName() {
         return name;

@@ -33,7 +33,7 @@ public class Signup extends AppCompatActivity {
     EditText nametext, emailtext, passwordEdit;
     AppDatabase db;
     FirebaseAuth auth;
-    private FirebaseAnalytics mFirebaseAnalytics;
+    //private FirebaseAnalytics mFirebaseAnalytics;
     FirebaseDatabase database;
     private DatabaseReference mDatabase;
 
@@ -45,7 +45,7 @@ public class Signup extends AppCompatActivity {
         emailtext = findViewById(R.id.Email_id);
         passwordEdit = findViewById(R.id.password);
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
-        auth = FirebaseAuth.getInstance();
+       // auth = FirebaseAuth.getInstance();
 
     }
 
@@ -54,14 +54,14 @@ public class Signup extends AppCompatActivity {
         try {
 
             User user = new User();
-            String email = emailtext.getText().toString();
+            String mobile = emailtext.getText().toString();
             String name = nametext.getText().toString();
             String password = passwordEdit.getText().toString();
-
-            user.setEmail(email);
+            Long mobileno =Long.parseLong(mobile);
+            user.setMobileno(mobileno);
             user.setName(name);
             user.setPassword(password);
-
+/*
             auth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -82,10 +82,11 @@ public class Signup extends AppCompatActivity {
                             }
                         }
                     });
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
+                    */
+            //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
             db.userDao().insertAll(user);
-            mDatabase.push().setValue(user);
+          //  mDatabase.push().setValue(user);
             int time = Toast.LENGTH_SHORT;
             String inserted = "Account Created";
             Context c = getApplicationContext();

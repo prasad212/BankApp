@@ -42,13 +42,13 @@
         android:layout_margin="10sp"
         android:textColor="@color/TextcolorLogin"
         android:layout_weight="1"
-        android:text="@string/email" />
+        android:text="@string/mobile_no" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:inputType="text"
+        android:inputType="phone"
         android:layout_weight="1"
         android:id="@+id/Email_id" />
 

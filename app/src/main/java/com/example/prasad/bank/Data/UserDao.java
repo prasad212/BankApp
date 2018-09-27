@@ -13,17 +13,17 @@ public interface UserDao {
     @Query("Select * From user ")
     List<User> getAll();
 
-    @Query("Select value From user Where Email Like :Email")
-    int finduserinfo(String Email);
+    @Query("Select value From user Where mobileno Like :mobileno")
+    int finduserinfo(Long mobileno);
 
-    @Query("Select * From user Where Email Like :Email" + " AND password Like :password")
-    boolean findbyEmail(String Email, String password);
+    @Query("Select * From user Where mobileno Like :mobileno" + " AND password Like :password")
+    boolean findbymobilno(Long mobileno, String password);
 
-    @Query("Select name From user Where Email Like :Email")
-    String returnname(String Email);
+    @Query("Select name From user Where mobileno Like :mobileno")
+    String returnname(Long mobileno);
 
-    @Query("UPDATE user SET value = :value WHERE Email Like :Email ")
-    int balanceupdate(String Email, int value);
+    @Query("UPDATE user SET value = :value WHERE mobileno Like :mobileno ")
+    int balanceupdate(Long mobileno, int value);
 
     @Update
     void setvalue(User user);
