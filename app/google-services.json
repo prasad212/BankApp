@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "298583337527",
+    "firebase_url": "https://bank-a7688.firebaseio.com",
+    "project_id": "bank-a7688",
+    "storage_bucket": "bank-a7688.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298583337527:android:a89ea3c95dd15c48",
+        "android_client_info": {
+          "package_name": "com.example.prasad.bank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298583337527-3jjkscjs8gsrmikuakcr4mgghltilvl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prasad.bank",
+            "certificate_hash": "978c9d91e1072a2b1c43045bc3b23396cdb9c5bc"
+          }
+        },
+        {
+          "client_id": "298583337527-sja4md97q40oi3f90ib0t68gvjhkin2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5Nk1hi6z2SKbniACsX1uVi3lksWy51Y0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298583337527-sja4md97q40oi3f90ib0t68gvjhkin2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
