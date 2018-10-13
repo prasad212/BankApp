@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
+    android:background="@color/signupBackground"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".MainActivity">
@@ -17,7 +17,7 @@
         android:layout_marginTop="30sp"
         android:layout_weight="3"
 
-        android:src="@drawable/rupeesymbol" />
+        android:src="@drawable/rupee" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,7 +25,9 @@
         android:layout_margin="10sp"
         android:layout_weight="1"
         android:text="@string/email"
-        android:textColor="@color/TextcolorLogin" />
+        >
+
+    </TextView>
 
     <EditText
         android:id="@+id/login_id_email"
@@ -33,15 +35,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
         android:layout_weight="1"
-        android:inputType="textEmailAddress" />
+
+        android:inputType="textEmailAddress"
+        android:background="@color/Edittextcolor"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
-        android:layout_weight="1"
         android:text="@string/password"
-        android:textColor="@color/TextcolorLogin" />
+         />
 
     <EditText
         android:id="@+id/loginpassword"
@@ -49,28 +52,33 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
         android:layout_weight="1"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@color/Edittextcolor"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:background="@color/Login"
-        android:onClick="login"
+        android:id="@+id/login_id"
         android:text="@string/login"
+
         android:textColor="@color/TextcolorLogin" />
 
     <TextView
         android:id="@+id/signup_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="70sp"
-        android:layout_marginRight="25sp"
+        android:layout_gravity="center"
         android:layout_weight="1"
+        android:textSize="15sp"
+        android:layout_marginLeft="60sp"
+        android:layout_marginRight="50sp"
+
 
         android:text="@string/signup"
-        android:textColor="@color/TextcolorLogin" />
+         />
 
 
 </LinearLayout>

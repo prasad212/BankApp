@@ -3,6 +3,7 @@
     package="com.example.prasad.bank">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApplication"
@@ -21,9 +22,12 @@
         </activity>
         <activity android:name=".Signup" />
         <activity android:name=".MainPage" />
+        <activity android:name=".ListView" />
         <activity android:name=".Userinfo" />
-        <activity android:name=".WebActivity" />
-        <activity android:name=".ListView"></activity>
+        <activity android:name=".Getuserinfo" />
+        <activity android:name=".Setprice" />
+        <activity android:name=".Pay" />
+        <activity android:name=".Scanner"></activity>
     </application>
 
 </manifest>

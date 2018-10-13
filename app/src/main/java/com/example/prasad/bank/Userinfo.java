@@ -1,69 +1,76 @@
 package com.example.prasad.bank;
 
-import android.arch.persistence.room.Room;
-import android.provider.ContactsContract;
+import android.content.Intent;
+import android.graphics.Camera;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.prasad.bank.Data.AppDatabase;
-import com.example.prasad.bank.Data.User;
-import com.example.prasad.bank.Data.UserDao;
+import com.example.prasad.bank.Data.Account;
+import com.example.prasad.bank.Data.UserData;
+import com.example.prasad.bank.Transaction.Payee;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class Userinfo extends AppCompatActivity {
-    AppDatabase db;
-    TextView nameText, mobilenoText, amounttext;
-    User user = new User();
-    String name, mobileno;
-    MyApplication application;
-    private DatabaseReference databaseReference;
-    DatabaseReference userref;
+    TextView nametext,contactnotext,balancetext;
+    FirebaseUser firebaseUser;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference myref;
+    DatabaseReference myref2;
+    Payee payee =new Payee();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
-        nameText = findViewById(R.id.nameuserid);
-        mobilenoText = findViewById(R.id.mobilenouserinfo);
-        amounttext = findViewById(R.id.amount_id);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        userref = databaseReference.child("users");
-        application = (MyApplication) getApplication();
-      String email= application.getEmail();
+        nametext=(TextView)findViewById(R.id.name_id_profile);
+        contactnotext=(TextView)findViewById(R.id.contactno_id);
+        balancetext = (TextView)findViewById(R.id.balance_id);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String userid = firebaseUser.getUid();
+    firebaseDatabase = FirebaseDatabase.getInstance();
+    myref =firebaseDatabase.getReference("Users");
 
-       /* db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
-        try {
-            int balance = db.userDao().finduserinfo(mobno);
-            String name = db.userDao().returnname(mobno);
-            String balanaceString = String.valueOf(balance);
-            nameText.setText(name);
-            //mobilenoText.setText(mobileno);
-            amounttext.setText(balanaceString);
 
-        } catch (RuntimeException e) {
-            int length = Toast.LENGTH_SHORT;
-            String msg = "Error ";
-            Toast toast = Toast.makeText(this, msg, length);
-            toast.show();
+      myref.child(userid).addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+          //  UserData userData = dataSnapshot.getValue(UserData.class);
+            UserData userData = dataSnapshot.child("Info").getValue(UserData.class);
+            Account account = dataSnapshot.child("Account").getValue(Account.class);
+            Double balance  = account.getBalance();
+
+
+            String name =  userData.getName();
+            String mobileno = userData.getMobileno();
+            nametext.setText(name);
+            contactnotext.setText(mobileno);
+
+            balancetext.setText(String.valueOf(balance)+" ₹ ");
+
         }
-*/
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+
+
     }
 
 }
-
-
-
-
-    /*  if(i == true)
-    {
-        nameText.setText("helloo");
-    }else {
-        nameText.setText("nothing to show ");
-    }
-    }
-
-}
-*/

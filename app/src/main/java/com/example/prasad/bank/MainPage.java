@@ -1,40 +1,62 @@
 package com.example.prasad.bank;
 
-import android.arch.persistence.room.Room;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.prasad.bank.Data.AppDatabase;
+import com.example.prasad.bank.Data.Qrcode;
 import com.example.prasad.bank.Data.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainPage extends AppCompatActivity {
-    AppDatabase db;
+
     TextView nametextView;
-    EditText amounttext;
+    
     User user = new User();
     long mobno;
     MyApplication application;
+    Button addmoney,pay;
+    ImageView imageView;
+
+    Qrcode qrcode = new Qrcode();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         application = (MyApplication) getApplication();
-        // mobno = application.getMobileno();
-        amounttext = findViewById(R.id.ammount);
-
-        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
-
+        imageView  = (ImageView)findViewById(R.id.qrcode_id);
+            addmoney = (Button)findViewById(R.id.add_money_id);
+            pay = (Button)findViewById(R.id.scantopay_id);
+            pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainPage.this,Pay.class));
+                }
+            });
+            addmoney.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= new Intent(MainPage.this,Setprice.class);
+                    startActivity(intent);
+                }
+            });
+        FirebaseUser firebaseUser  = FirebaseAuth.getInstance().getCurrentUser();
+        String name  =   firebaseUser.getEmail();
+         String uid =  firebaseUser.getUid();
         nametextView = findViewById(R.id.nameTextView);
+        Bitmap bitmap = qrcode.createQrCode(uid);
+        imageView.setImageBitmap(bitmap);
 
-        String name = db.userDao().returnname(application.Email);
-
-        nametextView.setText("Hello " + name);
+        nametextView.setText("Hello " + uid);
     }
 
     void userinfo(View view) {
@@ -50,39 +72,4 @@ public class MainPage extends AppCompatActivity {
         finish();
     }
 
-    void setamount(View view) {
-        String amount = amounttext.getText().toString();
-        int amountint = Integer.parseInt(amount);
-
-        int i = db.userDao().balanceupdate(application.Email, amountint);
-        if (i == 1) {
-            int length = Toast.LENGTH_SHORT;
-            String msg = "Balance Updated";
-            Toast toast = Toast.makeText(this, msg, length);
-            toast.show();
-        } else {
-            int length = Toast.LENGTH_SHORT;
-            String msg = "Error ";
-            Toast toast = Toast.makeText(this, msg, length);
-            toast.show();
-        }
-    }
-    void delete(View view)
-    {
-        User user = db.userDao().returnuser(application.Email);
-        if(db.userDao().deleteAll(user)==1)
-        {
-            int length = Toast.LENGTH_SHORT;
-            String msg = "User"+user.getEmail()+" deleted";
-            Toast toast = Toast.makeText(this, msg, length);
-            toast.show();
-        }
-        else{
-            int length = Toast.LENGTH_SHORT;
-            String msg = "Error deleting";
-            Toast toast = Toast.makeText(this, msg, length);
-            toast.show();
-        }
-
-    }
 }

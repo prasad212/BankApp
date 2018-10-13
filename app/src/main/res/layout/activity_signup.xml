@@ -5,77 +5,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Signup"
-    android:orientation="vertical"
-    android:background="@color/Background">
+android:orientation="vertical"
+    android:weightSum="10"
+    android:background="@color/signupBackground">
 
     <ImageView
         android:id="@+id/imageview"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="30sp"
-        android:layout_height="100sp"
-        android:src="@drawable/rupeesymbol"
+        android:layout_width="match_parent"
+        android:layout_height="175sp"
+        android:layout_weight="4"
+
         android:layout_gravity="center_horizontal"
+        android:src="@drawable/rupee" />
 
-        android:layout_weight="3" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10sp"
-
-        android:text="@string/name"
-
-        android:layout_weight="1"
-        android:textColor="@color/TextcolorLogin" />
 
     <EditText
+        android:id="@+id/Email_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Name_id"
-        android:inputType="text"
+        android:layout_margin="5sp"
         android:layout_weight="1"
-        android:layout_margin="10sp" />
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:background="@color/Edittextcolor"
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10sp"
-        android:textColor="@color/TextcolorLogin"
-        android:layout_weight="1"
-        android:text="@string/email" />
 
     <EditText
+        android:layout_weight="1"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
-        android:inputType="text"
-        android:layout_weight="1"
-        android:id="@+id/Email_id" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10sp"
-        android:text="@string/password"
-        android:layout_weight="1"
-        android:textColor="@color/TextcolorLogin" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10sp"
         android:inputType="textPassword"
+        android:layout_margin="5sp"
+        android:background="@color/Edittextcolor"
+        android:hint="Password"/>
+
+
+    <EditText
         android:layout_weight="1"
-        android:id="@+id/password" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirmpass_id"
+        android:layout_margin="5sp"
+        android:background="@color/Edittextcolor"
+        android:hint="Confirm Password"
+        />
 
     <Button
+        android:id="@+id/createaccount_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Login"
-        android:textColor="@color/TextcolorLogin"
-        android:text="@string/create_account"
+        android:background="@android:color/holo_blue_bright"
+        android:layout_weight="0.2"
+        android:padding="10sp"
         android:layout_margin="10sp"
-        android:layout_weight="1"
-        android:onClick="insert" />
+        android:text="@string/create_account"
+        android:textColor="@color/TextcolorLogin" />
+
 
 </LinearLayout>

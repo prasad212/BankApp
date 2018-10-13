@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#FFF44336</color>
     <color name="colorAccent">#FFF44336</color>
     <color name="Background">#f44336</color>
+    <color name="signupBackground">#ffffff</color>
     <color name="TextcolorLogin">#ffffff</color>
-    <color name="Login">#FFB71C1C</color>
+    <color name="Textcolorsignup">#FF000000</color>
+    <color name="Login">#f44336</color>
+    <color name="Edittextcolor">#f5f5f5</color>
 </resources>

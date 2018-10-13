@@ -1,20 +1,18 @@
 package com.example.prasad.bank;
 
-import android.arch.persistence.room.Room;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteConstraintException;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.prasad.bank.Data.AppDatabase;
 import com.example.prasad.bank.Data.User;
-import com.example.prasad.bank.Data.UserDao;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -23,136 +21,168 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import javax.xml.transform.Result;
 
 public class Signup extends AppCompatActivity {
-    public User user;
-    public UserDao userDao;
-    EditText nametext, emailtext, passwordEdit;
-    AppDatabase db;
+
+    EditText confirmPasswordtext, emailtext, passwordEdit;
+
     FirebaseAuth auth;
-    private FirebaseAnalytics mFirebaseAnalytics;
+
     FirebaseDatabase database;
-    private DatabaseReference mDatabase;
     Context signupcontext;
-    String email, name, password;
+    String email, name, password, conpass;
     FirebaseUser fireuser;
-    boolean isfireuseradded,isroomuseradded;
+    boolean isfireuseradded;
+    Button createaccount;
+    User user;
+
+    ProgressDialog progressDialog;
+    MyApplication myApplication;
+    private DatabaseReference mDatabase;
+   protected AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        nametext = findViewById(R.id.Name_id);
+        confirmPasswordtext = findViewById(R.id.confirmpass_id);
         emailtext = findViewById(R.id.Email_id);
         passwordEdit = findViewById(R.id.password);
-        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bankDB").allowMainThreadQueries().build();
+
         auth = FirebaseAuth.getInstance();
+        createaccount = (Button) findViewById(R.id.createaccount_id);
+        createaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insert(v);
+            }
+        });
     }
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        FirebaseUser user = auth.getCurrentUser();
+    }
+
 
     void insert(View view) {
 
-User user1= new User();
 
-        email = emailtext.getText().toString();
-        name = nametext.getText().toString();
-        password = passwordEdit.getText().toString();
+        if (getdata()) {
+            if (passwordcheck(password, conpass)) {
 
-        user1.setEmail(email);
-        user1.setName(name);
-        user1.setPassword(password);
-        user= user1;
-try{
-       boolean  i =  authfirebase();
-       if(isfireuseradded==true)
-       {
-          boolean  j =   insertroom();
-           if(j==true)
-           {
+                authfirebase();
 
-               Intent intent = new Intent(this, MainActivity.class);
+                }
+            }
+        }
 
-               startActivity(intent);
 
-               finish();
 
-           }
-       }
-
-    }catch (IllegalArgumentException e)
-{
-
-    int time = Toast.LENGTH_SHORT;
-
-    String inserted = "Please Enter Data First";
-
-    Context c = getApplicationContext();
-
-    Toast t = Toast.makeText(c, inserted, time);
-    t.show();
-}
-
-    }
 
     boolean authfirebase() {
 
-        auth.createUserWithEmailAndPassword(email, password)
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Creating Account");
+        progressDialog.setMessage("Creating Your Account Please Wait");
+        progressDialog.show();
+
+        auth.createUserWithEmailAndPassword(email, conpass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            String inserted = "Account Created in Firebase";
-                            int time = Toast.LENGTH_SHORT;
-                             fireuser = auth.getCurrentUser();
+
+                            fireuser = auth.getCurrentUser();
+
                             signupcontext = getApplicationContext();
-                            Toast t = Toast.makeText(signupcontext, inserted, time);
-                            t.show();
+
+                            progressDialog.dismiss();
+                            login();
 
                         } else {
-                            String inserted = "Firebase Error";
+                            String inserted = "Account Already Exists";
                             int time = Toast.LENGTH_SHORT;
                             Context c = getApplicationContext();
                             Toast t = Toast.makeText(c, inserted, time);
                             t.show();
 
+                            progressDialog.dismiss();
                         }
                     }
                 });
-        return true;
+
+        return false;
     }
 
-    boolean insertroom() {
-
-        try {
-            //calling insertall in userdao passing user object
-            db.userDao().insertAll(user);
-
-            //mDatabase.push().setValue(user);
-
-
-            int time = Toast.LENGTH_SHORT;
-
-            String inserted = "Account Created";
-
-            Context c = getApplicationContext();
-
-            Toast t = Toast.makeText(c, inserted, time);
-
-            t.show();
-
-        } catch (SQLiteConstraintException e) {
-
-            int time = Toast.LENGTH_SHORT;
-            String inserted = "Email Already Exist";
-            Context c = getApplicationContext();
-            Toast t = Toast.makeText(c, inserted, time);
-            t.show();
-
-
+    boolean passwordcheck(String password, String conpass) {
+        if (password.equals(conpass)) {
+            return true;
+        } else {
+          confirmPasswordtext.setError("Please Check Your Password");
+            return false;
         }
-return  true;
+    }
+
+   private boolean getdata() {
+       boolean valid = false;
+       email = emailtext.getText().toString();
+       conpass = confirmPasswordtext.getText().toString();
+       password = passwordEdit.getText().toString();
+
+       if (email.isEmpty()) {
+           emailtext.setError("Email Required");
+           valid = false;
+       } else {
+           emailtext.setError(null);
+           valid = true;
+       }
+
+       if (password.isEmpty()) {
+           passwordEdit.setError("Password Required");
+           valid = false;
+       } else {
+           int length = password.length();
+           if (length >= 6) {
+               passwordEdit.setError(null);
+               valid = true;
+           } else {
+               passwordEdit.setError("Password Has to greater than 5 character");
+               valid = false;
+           }
+       }
+
+           if (conpass.isEmpty()) {
+               confirmPasswordtext.setError("Confirm password");
+               valid = false;
+           } else {
+
+               confirmPasswordtext.setError(null);
+               valid = true;
+           }
+
+
+
+       return valid;
+   }
+    void login()
+    {
+
+        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                {
+                    Intent intent = new Intent(Signup.this,Getuserinfo.class);
+                    startActivity(intent);
+                }
+                else {
+
+
+                }
+            }
+        });
+
     }
 }

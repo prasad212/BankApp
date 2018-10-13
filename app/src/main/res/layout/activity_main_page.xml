@@ -1,67 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainPage">
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="200sp"
+   android:id="@+id/qrcode_id"
+    />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="15dp"
-        android:gravity="end"
+
+
+
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
+
+
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="41dp"
+
+
         android:onClick="userinfo"
         android:text="User Info " />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="106dp"
+
+
         android:text="Logout"
         android:onClick="logout" />
-
-    <EditText
-        android:id="@+id/ammount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="175dp"
-        android:hint="Add Amount" />
-
+        <Button
+            android:text="Add Money"
+            android:id="@+id/add_money_id"
+                android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="219dp"
-        android:text="add amount"
-        android:onClick="setamount" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="137dp"
-        android:text="delete"
-        android:onClick="delete"/>
+        android:text="Scan To Pay"
+        android:id="@+id/scantopay_id"/>
 
 
-</RelativeLayout>
+
+</LinearLayout>
