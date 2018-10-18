@@ -27,7 +27,8 @@
         <activity android:name=".Getuserinfo" />
         <activity android:name=".Setprice" />
         <activity android:name=".Pay" />
-        <activity android:name=".Scanner"></activity>
+        <activity android:name=".Scanner" />
+        <activity android:name=".Transaction"></activity>
     </application>
 
 </manifest>

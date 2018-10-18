@@ -35,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Pay extends AppCompatActivity {
 
 
-    String benificaryuid = "1mYJZj7r8ZR8U4rI4aCVwhxT8V72";
+    String benificaryuid ;
     String payeeuid;
     String Benificaryname;
     Button scan, pay;
@@ -62,7 +62,7 @@ public class Pay extends AppCompatActivity {
         uid = (TextView) findViewById(R.id.scan_id);
         amount = (EditText) findViewById(R.id.payamount_id);
         pay = (Button) findViewById(R.id.payment_id);
-        uid.setText(benificaryuid);
+
         myref = FirebaseDatabase.getInstance().getReference("Users");
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +78,8 @@ public class Pay extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
-        //  pay.setVisibility(View.GONE);
-        // amount.setVisibility(View.GONE);
+          pay.setVisibility(View.GONE);
+         amount.setVisibility(View.GONE);
 
     }
 
@@ -90,9 +90,9 @@ public class Pay extends AppCompatActivity {
                 benificaryuid = data.getStringExtra("uid");
 
                 //
-
-                //  pay.setVisibility(View.VISIBLE);
-                // amount.setVisibility(View.VISIBLE);
+                uid.setText(benificaryuid);
+                 pay.setVisibility(View.VISIBLE);
+                 amount.setVisibility(View.VISIBLE);
 
             }
 
@@ -153,7 +153,7 @@ public class Pay extends AppCompatActivity {
             Account payeeAccount = new Account(newBalance);
             myref.child(payeeuid).child("Account").child("balance").setValue(newBalance);
 
-            payTransaction.payeeTransaction(payeeuid,benificaryuid,payamount1,newBalance);
+            payTransaction.payeeTransaction(payeeuid,benificaryuid,payamount1,newBalance );
 
             }
 

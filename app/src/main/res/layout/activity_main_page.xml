@@ -1,56 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     tools:context=".MainPage">
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="200sp"
    android:id="@+id/qrcode_id"
+
     />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/qrcode_id"
+        android:layout_alignParentStart="true"
 
 
-
+        android:padding="16dp"
         android:textSize="20sp"
-        android:textStyle="bold"/>
-
+        android:textStyle="bold"
+        tools:text=" Hello Prasad" />
 
 
     <Button
+        android:id="@+id/userinfo"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
 
+        android:layout_below="@+id/add_money_id"
+        android:layout_centerHorizontal="true"
         android:onClick="userinfo"
         android:text="User Info " />
 
     <Button
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
 
-        android:text="Logout"
-        android:onClick="logout" />
-        <Button
-            android:text="Add Money"
-            android:id="@+id/add_money_id"
-                android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            />
+        android:layout_below="@+id/userinfo"
+        android:layout_centerHorizontal="true"
+        android:onClick="logout"
+        android:text="Logout" />
+
     <Button
+        android:id="@+id/add_money_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scan To Pay"
-        android:id="@+id/scantopay_id"/>
+
+
+        android:layout_below="@+id/scantopay_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-184dp"
+        android:text="Add Money" />
+
+    <Button
+        android:id="@+id/scantopay_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="203dp"
+        android:text="Scan To Pay" />
 
 
 
-</LinearLayout>
+</RelativeLayout>
