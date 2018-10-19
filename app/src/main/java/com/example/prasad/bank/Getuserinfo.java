@@ -76,7 +76,7 @@ public class Getuserinfo extends AppCompatActivity {
                 Intent intent = new Intent(Getuserinfo.this,MainActivity.class);
                 startActivity(intent);
             }
-        })
+        });
         int length =Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this,"added to user",length);
         toast.show();
