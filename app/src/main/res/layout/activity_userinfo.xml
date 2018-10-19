@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-
+        android:layout_margin="10sp"
         android:text="Name" />
 
     <TextView
@@ -20,14 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-
+        android:layout_margin="10sp"
         android:textSize="24sp"
         android:background="@color/Edittextcolor"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_margin="10sp"
 
         android:text="Mobileno" />
 
@@ -35,7 +35,7 @@
         android:id="@+id/contactno_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_margin="10sp"
         android:background="@color/Edittextcolor"
 
         android:textSize="24sp" />
@@ -43,11 +43,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Balance"
+        android:layout_margin="10sp"
         />
     <TextView
         android:id="@+id/balance_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:background="@color/Edittextcolor"
+        android:layout_margin="10sp"
         android:textSize="30sp"/>
 
 

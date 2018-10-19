@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Pay"
-    android:orientation="vertical">
+  >
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/scan_id"
        android:textSize="20sp"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="scan"
-        android:id="@+id/scanbutton_id"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/payamount_id"
-        android:inputType="number"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pay"
-        android:id="@+id/payment_id"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/scanbutton_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="171dp"
+        android:text="scan"
+        android:background="@color/Mainpagebutton"/>
+
+    <EditText
+        android:id="@+id/payamount_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="156dp"
+        android:inputType="number"
+        android:background="@color/Edittextcolor"/>
+
+    <Button
+        android:id="@+id/payment_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="261dp"
+        android:text="Pay"
+        android:background="@color/Mainpagebutton"/>
+
+</RelativeLayout>

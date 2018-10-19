@@ -28,7 +28,7 @@
         <activity android:name=".Setprice" />
         <activity android:name=".Pay" />
         <activity android:name=".Scanner" />
-        <activity android:name=".Transaction"></activity>
+        <activity android:name=".Transactions"></activity>
     </application>
 
 </manifest>

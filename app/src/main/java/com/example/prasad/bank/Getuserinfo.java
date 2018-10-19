@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.prasad.bank.Data.Account;
 import com.example.prasad.bank.Data.UserData;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -69,7 +70,13 @@ public class Getuserinfo extends AppCompatActivity {
 
         userData = new UserData(name,mobileno);
         myref.child("Users").child(uid).child("Info").setValue(userData);
-        myref.child("Users").child(uid).child("Account").setValue(account);
+        myref.child("Users").child(uid).child("Account").setValue(account).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Intent intent = new Intent(Getuserinfo.this,MainActivity.class);
+                startActivity(intent);
+            }
+        })
         int length =Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this,"added to user",length);
         toast.show();

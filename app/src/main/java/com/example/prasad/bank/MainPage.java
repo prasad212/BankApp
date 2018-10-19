@@ -25,7 +25,7 @@ public class MainPage extends AppCompatActivity {
     MyApplication application;
     Button addmoney,pay;
     ImageView imageView;
-
+        Button tran ;
     Qrcode qrcode = new Qrcode();
 
     @Override
@@ -57,6 +57,14 @@ public class MainPage extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
 
         nametextView.setText("Hello " + uid);
+        tran = (Button)findViewById(R.id.tran_id);
+        tran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainPage.this,Transactions.class);
+                startActivity(intent);
+            }
+        });
     }
 
     void userinfo(View view) {

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
 
     tools:context=".MainPage">
 <ImageView
@@ -15,16 +16,14 @@
 
     <TextView
         android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/qrcode_id"
-        android:layout_alignParentStart="true"
-
-
-        android:padding="16dp"
+            android:layout_margin="5sp"
+        android:background="@color/Edittextcolor"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text=" Hello Prasad" />
+
 
 
     <Button
@@ -32,46 +31,49 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-
-        android:layout_below="@+id/add_money_id"
-        android:layout_centerHorizontal="true"
         android:onClick="userinfo"
-        android:text="User Info " />
+        android:text="Balance "
+        android:background="@color/Mainpagebutton"
+  android:layout_margin="10sp"
+        />
 
+       <Button
+           android:id="@+id/tran_id"
+           android:layout_width="match_parent"
+           android:background="@color/Mainpagebutton"
+
+           android:layout_height="wrap_content"
+        android:layout_margin = "10sp"
+           android:text="Transactions" />
+
+
+       <Button
+           android:id="@+id/add_money_id"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+           android:background="@color/Mainpagebutton"
+
+           android:text="Add Money" />
+
+       <Button
+           android:id="@+id/scantopay_id"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+           android:background="@color/Mainpagebutton"
+           android:text="Scan To Pay" />
     <Button
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/Login"
 
+            android:layout_margin="10sp"
 
-        android:layout_below="@+id/userinfo"
-        android:layout_centerHorizontal="true"
         android:onClick="logout"
         android:text="Logout" />
 
-    <Button
-        android:id="@+id/add_money_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
 
-        android:layout_below="@+id/scantopay_id"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-184dp"
-        android:text="Add Money" />
-
-    <Button
-        android:id="@+id/scantopay_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="203dp"
-        android:text="Scan To Pay" />
-
-
-
-</RelativeLayout>
+</LinearLayout>
