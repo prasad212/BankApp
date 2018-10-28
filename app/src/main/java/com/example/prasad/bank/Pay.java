@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -153,7 +154,7 @@ public class Pay extends AppCompatActivity {
             Account payeeAccount = new Account(newBalance);
             myref.child(payeeuid).child("Account").child("balance").setValue(newBalance);
 
-            payTransaction.payeeTransaction(payeeuid,benificaryuid,payamount1,newBalance );
+            payTransaction.payeeTransaction(benificaryuid,payamount1,newBalance );
 
             }
 
@@ -162,12 +163,10 @@ public class Pay extends AppCompatActivity {
 
     boolean addtoBenificary(Double paymount) {
 
-
-
         Double balncefinal = benficarybalance + paymount;
 
         if (addtobenficary(balncefinal,paymount)) {
-            Toast.makeText(this, "Payed TO Benificary", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Payed To Benificary", Toast.LENGTH_SHORT).show();
         }
         return true;
 
@@ -177,7 +176,7 @@ public class Pay extends AppCompatActivity {
     boolean addtobenficary(Double amount,Double payamount) {
         Account account = new Account(amount);
         myref.child(benificaryuid).child("Account").setValue(account);
-        payTransaction.benificiaryTransaction(benificaryuid,payeeuid,payamount,amount);
+        payTransaction.benificiaryTransaction(benificaryuid,payamount,amount);
         return true;
     }
 

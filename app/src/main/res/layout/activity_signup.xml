@@ -48,6 +48,7 @@ android:orientation="vertical"
         android:layout_height="wrap_content"
         android:id="@+id/confirmpass_id"
         android:layout_margin="5sp"
+        android:inputType="textPassword"
         android:background="@color/Edittextcolor"
         android:hint="Confirm Password"
         />

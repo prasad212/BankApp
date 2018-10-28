@@ -3,7 +3,7 @@ package com.example.prasad.bank.Data;
 import java.util.Date;
 
 public class UserData {
-    UserData()
+    public UserData()
     {
 
     }

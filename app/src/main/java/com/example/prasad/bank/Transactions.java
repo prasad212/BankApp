@@ -1,6 +1,7 @@
 package com.example.prasad.bank;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -8,6 +9,7 @@ import android.widget.ListView;
 import com.example.prasad.bank.Transaction.TransactionDetail;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +26,7 @@ public class Transactions extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference myref;
     ArrayList<TransactionDetail> details = new ArrayList<TransactionDetail>();
-    TransactionDetail transactionDetail = new TransactionDetail();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +40,27 @@ public class Transactions extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = firebaseUser.getUid();
         myref = FirebaseDatabase.getInstance().getReference("Users");
-        myref.child(uid).child("Transaction").addValueEventListener(new ValueEventListener() {
+        myref.child(uid).child("Transaction").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               Set<String> set = new HashSet<>();
-               Iterator iterator = dataSnapshot.getChildren().iterator();
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                TransactionDetail transactionDetail = dataSnapshot.getValue(TransactionDetail.class);
+                details.add(transactionDetail);
+                myadapter.notifyDataSetChanged();
 
-                while (iterator.hasNext()) {
+            }
 
-                    set.add(((DataSnapshot)iterator.next()).getKey());
-                }
-                    details.clear();
-              //  details.addAll(set);
-                    myadapter.notifyDataSetChanged();
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
 
@@ -59,7 +69,6 @@ public class Transactions extends AppCompatActivity {
 
             }
         });
-
 
     }
 }

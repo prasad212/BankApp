@@ -34,10 +34,8 @@ public class TransactionDetail {
     }
 
     public void setBenificaryuid(String benificaryuid) {
-        benificaryuid = benificaryuid;
+        this.benificaryuid = benificaryuid;
     }
-
-
 
     public Double getDebitedamount() {
         return debitedamount;

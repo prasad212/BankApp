@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.prasad.bank.Data.Account;
+import com.example.prasad.bank.Transaction.PayTransaction;
 import com.example.prasad.bank.Transaction.Payee;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +32,7 @@ public class Setprice extends AppCompatActivity {
     Double balancestate;
     int balance;
     boolean check = false;
-
+    PayTransaction payTransaction = new PayTransaction();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +75,11 @@ public class Setprice extends AppCompatActivity {
         progressDialog.show();
       //  String email = user.getEmail();
         String amountstring = priceedit.getText().toString();
-        Double amount = Double.parseDouble(amountstring);
-        amount = balancestate + amount;
+        Double amount1 = Double.parseDouble(amountstring);
+       Double amount = balancestate + amount1;
         Account account = new Account( amount);
         myref.child(uid).child("Account").setValue(account);
+        payTransaction.addbalance(amount1,amount);
         progressDialog.dismiss();
     }
 
