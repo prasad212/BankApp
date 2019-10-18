@@ -15,6 +15,8 @@ import com.example.prasad.bank.Data.Qrcode;
 import com.example.prasad.bank.Data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainPage extends AppCompatActivity {
 
@@ -25,7 +27,8 @@ public class MainPage extends AppCompatActivity {
     MyApplication application;
     Button addmoney,pay;
     ImageView imageView;
-        Button tran ;
+        Button tran,userbutton;
+
     Qrcode qrcode = new Qrcode();
 
     @Override
@@ -36,6 +39,14 @@ public class MainPage extends AppCompatActivity {
         imageView  = (ImageView)findViewById(R.id.qrcode_id);
             addmoney = (Button)findViewById(R.id.add_money_id);
             pay = (Button)findViewById(R.id.scantopay_id);
+            userbutton=(Button)findViewById(R.id.userinfo);
+            userbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainPage.this,Userinfo.class));
+                }
+            });
+
             pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -51,12 +62,14 @@ public class MainPage extends AppCompatActivity {
             });
         FirebaseUser firebaseUser  = FirebaseAuth.getInstance().getCurrentUser();
         String name  =   firebaseUser.getEmail();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        //databaseReference.child()
          String uid =  firebaseUser.getUid();
         nametextView = findViewById(R.id.nameTextView);
         Bitmap bitmap = qrcode.createQrCode(uid);
         imageView.setImageBitmap(bitmap);
 
-        nametextView.setText("Hello " + uid);
+        nametextView.setText("Hello " + name);
         tran = (Button)findViewById(R.id.tran_id);
         tran.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +78,7 @@ public class MainPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     void userinfo(View view) {

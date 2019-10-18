@@ -18,9 +18,10 @@ import java.util.ArrayList;
 public class Myadapter extends ArrayAdapter<TransactionDetail> {
     ArrayList<TransactionDetail>arrayList = new ArrayList<>();
 
-    public Myadapter( Context context, ArrayList<TransactionDetail>arrayList) {
-        super(context, 0,arrayList);
+    public Myadapter(@NonNull Context context, ArrayList<TransactionDetail> resource) {
+            super(context,0, resource);
     }
+
 
     @NonNull
     @Override

@@ -73,15 +73,18 @@ public class Setprice extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(Setprice.this);
         progressDialog.setMessage("Adding  balance");
         progressDialog.show();
-      //  String email = user.getEmail();
+        //  String email = user.getEmail();
         String amountstring = priceedit.getText().toString();
         Double amount1 = Double.parseDouble(amountstring);
-       Double amount = balancestate + amount1;
-        Account account = new Account( amount);
-        myref.child(uid).child("Account").setValue(account);
-        payTransaction.addbalance(amount1,amount);
-        progressDialog.dismiss();
+        Double amount = balancestate + amount1;
+        if (amount > 10000) {
+            priceedit.setError("Enter Amount less than 10000");
+        } else {
+            Account account = new Account(amount);
+            myref.child(uid).child("Account").setValue(account);
+            payTransaction.addbalance(amount1, amount);
+            progressDialog.dismiss();
+        }
     }
-
 
 }
